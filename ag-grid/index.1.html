@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script>
+        var __basePath = '';
+    </script>
+    <style>
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+        }
+    </style>
+    <script src="ag-grid.min.js"></script>
+</head>
+
+<body>
+
+    <div style="height: 100%; padding-top: 35px; box-sizing: border-box;">
+        <div id="myGrid" style="height: 100%;" class="ag-theme-balham"></div>
+    </div>
+
+    <div style="position: absolute; top: 0px; left: 0px;">
+        <button onclick="setPriceOnToyota()">Set Price on Toyota</button>
+        <button onclick="setDataOnFord()">Set Data on Ford</button>
+        &nbsp;
+        &nbsp;
+        &nbsp;
+        <button onclick="updateSort()">Sort</button>
+        <button onclick="updateFilter()">Filter</button>
+    </div>
+    <script>
+        // this example has items declared globally. bad javascript. but keeps the example simple.
+        var columnDefs = [{
+                headerName: "Make",
+                field: "make"
+            },
+            {
+                headerName: "Model",
+                field: "model"
+            },
+            {
+                headerName: "Price",
+                field: "price",
+                filter: 'agNumberColumnFilter'
+            }
+        ];
+
+        var rowData = [{
+                id: 'aa',
+                make: "Toyota",
+                model: "Celica",
+                price: 35000
+            },
+            {
+                id: 'bb',
+                make: "Ford",
+                model: "Mondeo",
+                price: 32000
+            },
+            {
+                id: 'cc',
+                make: "Porsche",
+                model: "Boxter",
+                price: 72000
+            },
+            {
+                id: 'dd',
+                make: "BMW",
+                model: "5 Series",
+                price: 59000
+            },
+            {
+                id: 'ee',
+                make: "Dodge",
+                model: "Challanger",
+                price: 35000
+            },
+            {
+                id: 'ff',
+                make: "Mazda",
+                model: "MX5",
+                price: 28000
+            },
+            {
+                id: 'gg',
+                make: "Horse",
+                model: "Outside",
+                price: 99000
+            }
+        ];
+
+        var gridOptions = {
+            defaultColDef: {
+                editable: true
+            },
+            enableSorting: true,
+            enableFilter: true,
+            animateRows: true,
+            getRowNodeId: function (data) {
+                return data.id;
+            },
+            columnDefs: columnDefs,
+            rowData: rowData
+        };
+
+        function updateSort() {
+            gridOptions.api.refreshClientSideRowModel('sort');
+        }
+
+        function updateFilter() {
+            gridOptions.api.refreshClientSideRowModel('filter');
+        }
+
+        // Set Price on Toyota: The price value is updated on the Toyota row and the grid refreshes the cell.
+        function setPriceOnToyota() {
+            var rowNode = gridOptions.api.getRowNode('aa');
+            var newPrice = Math.floor(Math.random() * 100000);
+            rowNode.setDataValue('price', newPrice);
+        }
+
+        // Set Data on Ford: The entire data is set on the Ford row and the grid refreshes the entire row.
+        function setDataOnFord() {
+            var rowNode = gridOptions.api.getRowNode('bb');
+            var newPrice = Math.floor(Math.random() * 100000);
+            var newModel = 'T-' + Math.floor(Math.random() * 1000);
+            var newData = {
+                id: 'bb',
+                make: 'Ford',
+                model: newModel,
+                price: newPrice
+            };
+            rowNode.setData(newData);
+        }
+
+        // wait for the document to be loaded, otherwise
+        // ag-Grid will not find the div in the document.
+        document.addEventListener("DOMContentLoaded", function () {
+            var eGridDiv = document.querySelector('#myGrid');
+            new agGrid.Grid(eGridDiv, gridOptions);
+        });
+    </script>
+</body>
+
+</html>

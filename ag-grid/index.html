@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- <script src="ag-grid.min.noStyle.js"></script> -->
+    <script src="ag-grid-enterprise.min.js"></script>
+    <link rel="stylesheet" href="ag-grid.css">
+    <link rel="stylesheet" href="ag-theme-balham.css">
+</head>
+
+<body>
+    <h1>Hello from ag-grid!</h1>
+
+    <div id="myGrid" style="height: 600px;width:500px;" class="ag-theme-balham"></div>
+
+    <script type="text/javascript" charset="utf-8">
+        // specify the columns
+        let columnDefs = [{
+                headerName: "Make",
+                field: "make",
+                rowGroup: true
+            },
+            {
+                headerName: "Model",
+                field: "model"
+            },
+            {
+                headerName: "Price",
+                field: "price"
+            }
+        ];
+
+        // specify the data
+        let rowData = [{
+                make: "Toyota",
+                model: "Celica",
+                price: 3500
+            },
+            {
+                make: "Ford",
+                model: "Mondeo",
+                price: 920
+            },
+            {
+                make: "Ford",
+                model: "Mondeo2",
+                price: 9200
+            },
+            {
+                make: "Porsche",
+                model: "Boxter",
+                price: 72000
+            }
+        ];
+
+        // let the grid know which columns and what data to use
+        let gridOptions = {
+            columnDefs,
+            rowData,
+            enableSorting: true,
+            onCellClicked: function (e) {
+                window.e = e
+            }
+        };
+
+        // lookup the container we want the Grid to use
+        window.myGrid = document.querySelector('#myGrid');
+
+        // create the grid passing in the div to use together with the columns & data we want to use
+        new agGrid.Grid(myGrid, gridOptions);
+
+
+
+
+        //  When a handler returns a value, it becomes the result of that promise, so the next .then is called with it.
+    </script>
+</body>
+
+</html>
