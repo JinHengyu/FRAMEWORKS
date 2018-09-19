@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        /* 定义容器,不要直接定义canvas */
+        #container {
+            width: 600px;
+            height: 600px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container">
+        <canvas id="myChart" width="400" height="400"></canvas>
+    </div>
+    <script src="./Chart.bundle.min.js"></script>
+    <script>
+        var ctx = document.getElementById("myChart").getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+                datasets: [{
+                    label: 'orange',
+                    data: [15, -12, 9, -6, 3, 0],
+                    borderColor: 'rgb(255,165,0)',
+                    backgroundColor: 'rgba(255,165,0,0.5)',
+                    borderWidth: 1,
+                    fill: true
+                }, {
+                    label: 'blue',
+                    data: [-15, 12, -9, 6, -3, 0],
+                    borderColor: 'rgb(0,0,255)',
+                    backgroundColor: 'rgba(0,0,255,0.5)',
+                    borderWidth: 1,
+                    fill: true
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                },
+                elements: {
+                    line: {
+                        // default: 0.4
+                        // tension: 0, // disables bezier curves
+                    }
+                },
+                showLines: true
+            }
+        });
+    </script>
+</body>
+
+</html>
